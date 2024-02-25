@@ -1,0 +1,1 @@
+insert into tbl_usuario (correo, password)values("www@gmail.com","123");

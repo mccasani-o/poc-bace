@@ -1,0 +1,14 @@
+package com.ccasani.pocbace.repository;
+
+import com.ccasani.pocbace.model.entity.UsuarioEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
+    Optional<UsuarioEntity>findByCorreo(String correo);
+    Optional<UsuarioEntity>findByNombreUsuario(String username);
+
+    boolean existsBynombreUsuario(String nombreUsuario);
+    boolean existsByCorreo(String correo);
+}
