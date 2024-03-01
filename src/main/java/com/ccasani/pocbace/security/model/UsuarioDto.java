@@ -15,7 +15,6 @@ import java.util.Collection;
 public class UsuarioDto {
 
     private String token;
-    //private final String bearer = "Bearer";
     private String nombreUsuario;
     private Collection<? extends GrantedAuthority> authorities;
 

@@ -1,7 +1,6 @@
 package com.ccasani.pocbace.model.request;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioRequest {
-    @Email
+
+    @NotBlank
+    private String nombreUsuario;
+    @Email(message = "{request.error.message.correo}")
     private String correo;
     @NotBlank(message = "{request.error.message.password}")
     @Size(min = 6, max = 20, message

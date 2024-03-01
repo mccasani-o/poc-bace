@@ -64,7 +64,7 @@ class UsuarioControllerTest {
     }
 
     @Test
-    public void saveUsuarioBadRequest() throws Exception {
+    void saveUsuarioBadRequest() throws Exception {
 
         UsuarioRequest usuarioRequest=    UsuarioRequest.builder().correo("mau@gmail.com").password("1234").build();
         mockMvc.perform(post("/usuarios")

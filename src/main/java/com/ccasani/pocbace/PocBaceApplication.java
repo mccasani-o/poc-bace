@@ -41,19 +41,18 @@ public class PocBaceApplication implements CommandLineRunner {
     }
 
     List<UsuarioEntity> lisUsers() {
-        return Arrays.asList(UsuarioEntity.builder().nombreUsuario("mau").correo("mau@gmail.com").password(passwordEncoder.encode( "Mauricio12345@")).role(RolNombre.USER).build(),
-                UsuarioEntity.builder().correo("db@gmail.com").password("FHHEYE").build(),
-                UsuarioEntity.builder().correo("argo@gmail.com").password("EOFJM").build(),
-                UsuarioEntity.builder().correo("maiz@gmail.com").password("R098KMM").build());
+        return Arrays.asList(UsuarioEntity.builder()
+                .nombreUsuario("mauricio")
+                .correo("mau@gmail.com")
+                .password(this.passwordEncoder.encode("1234"))
+                .role(RolNombre.USER).build());
     }
 
     void demo() {
         LocalDate now = LocalDateTime.now().atZone(ZoneId.of("America/Lima")).toLocalDate();
         LocalDate dateOut = now.equals(now.with(TemporalAdjusters.lastDayOfMonth())) ? now :
                 now.minusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
-        LocalDate dateIn=dateOut.with(TemporalAdjusters.lastDayOfMonth());
-        System.out.println(now);
-        System.out.println(dateOut);
-        System.out.println(dateIn);
+        LocalDate dateIn = dateOut.with(TemporalAdjusters.lastDayOfMonth());
+        log.info(dateIn.toString());
     }
 }

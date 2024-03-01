@@ -3,18 +3,11 @@ package com.ccasani.pocbace.controller;
 import com.ccasani.pocbace.model.request.UsuarioRequest;
 import com.ccasani.pocbace.model.response.UsuarioResponse;
 import com.ccasani.pocbace.service.UsuarioService;
-import com.ccasani.pocbace.util.ExcelExportaUtil;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.IntStream;
-
-import static java.util.Objects.isNull;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/usuarios")
-public class UsuarioController  {
+public class UsuarioController {
 
     private final UsuarioService usuarioService;
 

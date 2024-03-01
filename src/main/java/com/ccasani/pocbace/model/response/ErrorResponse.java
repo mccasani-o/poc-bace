@@ -2,8 +2,6 @@ package com.ccasani.pocbace.model.response;
 
 import lombok.*;
 
-import java.util.Objects;
-
 @Builder
 @Getter
 @Setter
@@ -11,7 +9,6 @@ import java.util.Objects;
 @NoArgsConstructor
 public class ErrorResponse {
 
-    private Objects data;
     private String code;
     private String message;
 }

@@ -1,13 +1,9 @@
 package com.ccasani.pocbace.security.model;
 
-import com.ccasani.pocbace.model.entity.UsuarioEntity;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class UsuarioPrincipal implements UserDetails {
@@ -24,8 +20,6 @@ public class UsuarioPrincipal implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
-
-
 
 
     @Override

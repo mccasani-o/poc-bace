@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +26,9 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        Optional<UsuarioEntity> user= Optional.of(userRepository.findByNombreUsuario(request.getUsername()).orElseThrow());
-        UserDetails userDetails =user.get();
-        String token=jwtService.getToken(userDetails);
+        Optional<UsuarioEntity> user = Optional.of(userRepository.findByNombreUsuario(request.getUsername()).orElseThrow());
+        UserDetails userDetails = user.get();
+        String token = jwtService.getToken(userDetails);
 
         return AuthResponse.builder()
                 .username(user.get().getUsername())
@@ -44,7 +43,7 @@ public class AuthService {
         UsuarioEntity user = UsuarioEntity.builder()
                 .nombreUsuario(request.getUsername())
                 .correo(request.getCorreo())
-                .password(passwordEncoder.encode( request.getPassword()))
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(RolNombre.USER)
                 .build();
 

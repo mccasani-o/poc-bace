@@ -2,10 +2,6 @@ package com.ccasani.pocbace.util;
 
 import com.ccasani.pocbace.controller.GenericExcel;
 import com.ccasani.pocbace.model.entity.UsuarioEntity;
-import com.ccasani.pocbace.model.request.UsuarioRequest;
-import com.ccasani.pocbace.model.response.UsuarioResponse;
-import com.ccasani.pocbace.repository.UsuarioRepository;
-import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,20 +10,18 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
-import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import static org.apache.poi.ss.util.CellUtil.createCell;
 
 
 @Component
-public  class ExcelExportaUtil {
+public class ExcelExportaUtil {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
 
-    private final List<UsuarioEntity> usuarioEntities;
+    private List<UsuarioEntity> usuarioEntities =new ArrayList<>();
 
     public ExcelExportaUtil(List<UsuarioEntity> usuarioEntities) {
         this.usuarioEntities = usuarioEntities;
@@ -55,7 +49,7 @@ public  class ExcelExportaUtil {
         Cell cell = row.createCell(columnCount);
         if (value instanceof Long) {
             cell.setCellValue((Long) value);
-        }else {
+        } else {
             cell.setCellValue((String) value);
         }
         cell.setCellStyle(style);
@@ -77,7 +71,7 @@ public  class ExcelExportaUtil {
 
             createCell(row, columnCount++, user.getId(), style);
             createCell(row, columnCount++, user.getCorreo(), style);
-            createCell(row, columnCount++, user.getPassword(), style);
+            createCell(row, columnCount, user.getPassword(), style);
         }
     }
 

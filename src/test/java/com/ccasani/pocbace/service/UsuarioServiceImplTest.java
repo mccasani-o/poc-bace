@@ -5,6 +5,7 @@ import com.ccasani.pocbace.model.entity.UsuarioEntity;
 import com.ccasani.pocbace.model.request.UsuarioRequest;
 import com.ccasani.pocbace.model.response.UsuarioResponse;
 import com.ccasani.pocbace.repository.UsuarioRepository;
+import com.ccasani.pocbace.util.ExcelExportaUtil;
 import com.ccasani.pocbace.util.UtilTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 
@@ -28,7 +30,11 @@ class UsuarioServiceImplTest {
     private UsuarioRepository usuarioRepository;
     @Mock
     private MessageComponent messageComponent;
-    ;
+    @Mock
+    private ApplicationEventPublisher eventPublisher;
+    @Mock
+    private ExcelExportaUtil excelExportaUtil;
+
 
     @InjectMocks
     private UsuarioServiceImpl usuarioService;
@@ -45,7 +51,7 @@ class UsuarioServiceImplTest {
 
     @Test
     void saveUsuario() {
-        UsuarioService usuarioService = new UsuarioServiceImpl(usuarioRepository, messageComponent);
+        UsuarioService usuarioService = new UsuarioServiceImpl(this.usuarioRepository, this.excelExportaUtil, this.messageComponent, this.eventPublisher);
         UsuarioRequest usuarioRequest = UsuarioRequest.builder().build();
         UsuarioEntity usuarioEntity = UsuarioEntity.builder().build();
 
