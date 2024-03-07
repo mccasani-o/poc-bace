@@ -48,5 +48,11 @@ public class UsuarioController {
         headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         response.setHeader("Content-Disposition", "attachment; filename=sample2" + UUID.randomUUID().toString() + ".xlsx");
         return ResponseEntity.ok().headers(headers).body(this.usuarioService.exportar());
+    } @GetMapping("/export-data")
+    public ResponseEntity<byte[]> exportData2(HttpServletResponse response) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        response.setHeader("Content-Disposition", "attachment; filename=sample2" + UUID.randomUUID().toString() + ".xlsx");
+        return ResponseEntity.ok().headers(headers).body(this.usuarioService.exportData2());
     }
 }

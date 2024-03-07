@@ -10,7 +10,8 @@ public interface UsuarioService {
 
     byte[] exportar() throws IOException;
 
-    public byte[] exportData() throws IOException;
+    byte[] exportData() throws IOException;
+    byte[] exportData2() throws IOException;
 
     void saveUsuario(UsuarioRequest usuarioRequest);
 

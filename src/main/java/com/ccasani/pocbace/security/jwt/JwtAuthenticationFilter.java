@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    public static final int BEGIN_INDEX = 7;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
@@ -66,7 +67,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer "))
         {
-            return authHeader.substring(7);
+            return authHeader.substring(BEGIN_INDEX);
         }
         return null;
     }

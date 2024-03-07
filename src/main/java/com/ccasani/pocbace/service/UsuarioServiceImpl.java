@@ -95,6 +95,56 @@ public class UsuarioServiceImpl implements UsuarioService {
         return stream.toByteArray();
     }
 
+    @Override
+    public byte[] exportData2() throws IOException {
+        final List<String> columnNameList = List.of("Id", "Usuario", "Email", "Password", "Rol");
+        final var outputStream = new ByteArrayOutputStream();
+        final var usuarios = this.listarUsuarios();
+        final var workBook = new XSSFWorkbook();
+        final var workSheet = workBook.createSheet("Employee Records");
+        final var initialRow = workSheet.createRow(0);
+
+        // To make heading row's font bold
+        final var style = workBook.createCellStyle();
+        final var font = workBook.createFont();
+        font.setBold(true);
+        style.setFont(font);
+
+        // Writing heading cell names in inital-row
+        for (int column = 0; column < columnNameList.size(); column++) {
+            final var cell = initialRow.createCell(column);
+            cell.setCellStyle(style);
+            cell.setCellValue(columnNameList.get(column));
+        }
+
+
+
+        // Iterating over each employee
+        for (int row = 0; row < usuarios.size(); row++) {
+
+            // making a new row representing the current employee
+            final var currentRow = workSheet.createRow(row + 1);
+
+            // populating current employees data in columns
+            for (int column = 0; column < columnNameList.size(); column++) {
+                final var currentCell = currentRow.createCell(column);
+                final var usuarioResponse = usuarios.get(row);
+                currentCell.setCellValue(this.excelExportaUtil.getValue(column, usuarioResponse));
+            }
+
+        }
+
+        // auto sizing each column in worksheet
+        for (int column = 0; column < columnNameList.size(); column++) {
+            workSheet.autoSizeColumn(column);
+        }
+
+        workBook.write(outputStream);
+        workBook.close();
+        outputStream.close();
+        return outputStream.toByteArray();
+    }
+
     @Transactional
     @Override
     public void saveUsuario(UsuarioRequest usuarioRequest) {

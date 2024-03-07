@@ -1,11 +1,17 @@
 package com.ccasani.pocbace.security.model;
 
+import com.ccasani.pocbace.model.entity.UsuarioEntity;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
-
+@Getter
+@Setter
 public class UsuarioPrincipal implements UserDetails {
     private final Long id;
     private final String nombreUsuario;
@@ -19,6 +25,14 @@ public class UsuarioPrincipal implements UserDetails {
         this.correo = correo;
         this.password = password;
         this.authorities = authorities;
+    }
+    public static UsuarioPrincipal build(UsuarioEntity usuario){
+
+        return new UsuarioPrincipal(usuario.getId(),
+                usuario.getNombreUsuario(),
+                usuario.getCorreo(),
+                usuario.getPassword(),
+                List.of(new SimpleGrantedAuthority((usuario.getRole().name()))));
     }
 
 
@@ -57,11 +71,5 @@ public class UsuarioPrincipal implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public String getCorreo() {
-        return correo;
-    }
 }

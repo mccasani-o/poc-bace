@@ -22,7 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "tbl_usuario")
 @Entity
-public class UsuarioEntity implements UserDetails {
+public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,35 +30,7 @@ public class UsuarioEntity implements UserDetails {
     private String correo;
     private String password;
     @Enumerated(EnumType.STRING)
-    RolNombre role;
+    private RolNombre role;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.name())));
-    }
 
-    @Override
-    public String getUsername() {
-        return nombreUsuario;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

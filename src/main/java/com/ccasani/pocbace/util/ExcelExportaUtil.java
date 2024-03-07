@@ -2,6 +2,7 @@ package com.ccasani.pocbace.util;
 
 import com.ccasani.pocbace.controller.GenericExcel;
 import com.ccasani.pocbace.model.entity.UsuarioEntity;
+import com.ccasani.pocbace.model.response.UsuarioResponse;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -84,5 +85,27 @@ public class ExcelExportaUtil {
         workbook.close();
 
         return stream.toByteArray();
+    }
+    public  String getValue( int columnIndex,  UsuarioResponse usuarioResponse) {
+        switch (columnIndex) {
+            case 0: {
+                return usuarioResponse.getId().toString();
+            }
+            case 1: {
+                return usuarioResponse.getNombreUsuario();
+            }
+            case 2: {
+                return usuarioResponse.getCorreo();
+            }
+            case 3: {
+                return usuarioResponse.getPassword();
+            }
+            case 4: {
+                return usuarioResponse.getRole().name();
+            }
+
+            default:
+                throw new IllegalArgumentException("Unexpected value: " + columnIndex);
+        }
     }
 }

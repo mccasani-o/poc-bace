@@ -14,7 +14,7 @@ import java.util.Optional;
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     public Optional<UsuarioEntity> getByNombreUsuario(String nombreUsuario){
-        return Optional.ofNullable(usuarioRepository.findByCorreo(nombreUsuario)
+        return Optional.ofNullable(usuarioRepository.findByNombreUsuario(nombreUsuario)
                 .orElseThrow(() -> new CustomException("9999", "Nombre usuario no existe.", HttpStatus.BAD_REQUEST)));
     }
 

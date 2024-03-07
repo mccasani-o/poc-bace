@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,19 +22,21 @@ import java.util.Optional;
 public class AuthService {
     private final UsuarioRepository userRepository;
     private final JwtService jwtService;
+    private final UserDetailsService detailsService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         Optional<UsuarioEntity> user = Optional.of(userRepository.findByNombreUsuario(request.getUsername()).orElseThrow());
-        UserDetails userDetails = user.get();
+       // UserDetails userDetails = user.get();
+        UserDetails userDetails=  this.detailsService.loadUserByUsername(request.getUsername());
         String token = jwtService.getToken(userDetails);
 
         return AuthResponse.builder()
-                .username(user.get().getUsername())
+                .username(userDetails.getUsername())
                 .correo(user.get().getCorreo())
-                .rol(String.valueOf(user.get().getRole()))
+                .rol(userDetails.getAuthorities().toString())
                 .token(token)
                 .build();
 
